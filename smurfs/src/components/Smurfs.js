@@ -6,7 +6,13 @@ export class Smurfs extends Component {
     return (
       <div>
         {this.props.smurfs.map(smurf => {
-          return <Smurf key={smurf.id} smurf={smurf} />;
+          return (
+            <Smurf
+              key={smurf.id}
+              smurf={smurf}
+              deleteSmurf={this.props.deleteSmurf}
+            />
+          );
         })}
       </div>
     );

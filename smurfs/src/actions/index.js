@@ -9,6 +9,8 @@ export const SUCCESS = "SUCCESS";
 export const FAILURE = "FAILURE";
 export const ADDING_SMURF = "ADDING_SMURF";
 export const SMURF_ADDED = "SMURF_ADDED";
+export const DELETING_SMURF = "DELETING_SMURF";
+export const SMURF_DELETED = "SMURF_DELETED";
 
 /*
   For this project you'll need at least 2 action creators for the main portion,
@@ -40,7 +42,21 @@ export const addSmurf = data => {
         dispatch({ type: SMURF_ADDED, payload: res.data });
       })
       .catch(err => {
-        dispatch({ type: FAILURE, payload: "Error bro" });
+        dispatch({ type: FAILURE, payload: "Error with adding" });
+      });
+  };
+};
+
+export const deleteSmurf = id => {
+  return dispatch => {
+    dispatch({ type: DELETING_SMURF });
+    axios
+      .delete(`http://localhost:3333/smurfs/${id}`)
+      .then(res => {
+        dispatch({ type: SMURF_DELETED, payload: res.data });
+      })
+      .catch(err => {
+        dispatch({ type: FAILURE, payload: "Error with deleting" });
       });
   };
 };

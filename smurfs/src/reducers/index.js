@@ -7,15 +7,19 @@ import {
   SUCCESS,
   FAILURE,
   ADDING_SMURF,
-  SMURF_ADDED
+  SMURF_ADDED,
+  DELETING_SMURF,
+  SMURF_DELETED
 } from "../actions";
 
 const initialState = {
   smurfs: [],
   fetchingSmurfs: false,
   addingSmurf: false,
-  smurfAdded: true,
-  error: null
+  smurfAdded: false,
+  error: null,
+  deletingSmurf: false,
+  smurfDeleted: false
 };
 
 /*
@@ -58,6 +62,18 @@ const reducers = (state = initialState, action) => {
         smurfs: action.payload,
         addingSmurf: false,
         smurfAdded: true
+      };
+    case DELETING_SMURF:
+      return {
+        ...state,
+        deletingSmurf: true
+      };
+    case SMURF_DELETED:
+      return {
+        ...state,
+        smurfs: action.payload,
+        deletingSmurf: false,
+        smurfDeleted: true
       };
     default:
       return state;

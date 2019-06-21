@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import { connect } from "react-redux";
-import { getSmurfs, addSmurf } from "../actions";
+import { getSmurfs, addSmurf, deleteSmurf } from "../actions";
 import Smurfs from "./Smurfs";
 
 /*
@@ -14,7 +14,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: [],
+      // list: [],
       name: "",
       age: "",
       height: ""
@@ -23,7 +23,7 @@ class App extends Component {
 
   componentDidMount() {
     this.props.getSmurfs();
-    this.setState({ list: { ...this.props.smurfs } });
+    // this.setState({ list: { ...this.props.smurfs } });
   }
 
   handleInputChange = e => {
@@ -72,7 +72,10 @@ class App extends Component {
           />
           <button>Add Smurf</button>
         </form>
-        <Smurfs smurfs={this.props.smurfs} />
+        <Smurfs
+          smurfs={this.props.smurfs}
+          deleteSmurf={this.props.deleteSmurf}
+        />
       </div>
     );
   }
@@ -83,10 +86,12 @@ const mapStateToProps = state => ({
   fetchingSmurfs: state.fetchingSmurfs,
   addingSmurf: state.addingSmurf,
   error: state.error,
-  smurfAdded: state.smurfAdded
+  smurfAdded: state.smurfAdded,
+  deletingSmurf: state.deletingSmurf,
+  smurfDeleted: state.smurfDeleted
 });
 
 export default connect(
   mapStateToProps,
-  { getSmurfs, addSmurf }
+  { getSmurfs, addSmurf, deleteSmurf }
 )(App);
